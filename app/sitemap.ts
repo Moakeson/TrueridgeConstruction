@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE, SERVICES } from "@/lib/constants";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages = SERVICES.map((service) => ({
     url: `${SITE.url}${service.href}`,
