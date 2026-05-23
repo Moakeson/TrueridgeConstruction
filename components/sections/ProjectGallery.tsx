@@ -22,7 +22,7 @@ export function ProjectGallery() {
           </div>
           <Link
             href="/our-work"
-            className="shrink-0 text-sm font-medium text-brand-accent hover:text-brand-accent/80"
+            className="inline-flex min-h-11 shrink-0 items-center text-sm font-medium text-brand-accent hover:text-brand-accent/80"
           >
             View All Projects &rarr;
           </Link>

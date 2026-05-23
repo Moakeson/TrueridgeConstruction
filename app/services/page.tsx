@@ -35,9 +35,9 @@ export default function ServicesPage() {
               </p>
               <Link
                 href={service.href}
-                className="mt-6 inline-flex items-center gap-1 font-medium text-brand-accent hover:text-brand-accent/80"
+                className="mt-6 inline-flex min-h-11 items-center gap-1 font-medium text-brand-accent-text hover:text-brand-accent-text/80"
               >
-                View details <ArrowRight className="h-4 w-4" />
+                View details <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </Card>
           ))}

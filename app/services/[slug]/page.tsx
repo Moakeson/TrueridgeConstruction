@@ -43,7 +43,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
       {schema && <JsonLd data={schema} />}
       <div className="pt-24">
         <Container className="py-16">
-          <p className="text-sm font-medium uppercase tracking-widest text-brand-accent">
+          <p className="text-sm font-medium uppercase tracking-widest text-brand-accent-text">
             {SITE.name}
           </p>
           <h1 className="mt-4 max-w-3xl font-heading text-4xl font-semibold tracking-tight sm:text-5xl">

@@ -1,14 +1,19 @@
+import { preload } from "react-dom";
 import Image from "next/image";
 import { SITE } from "@/lib/constants";
+import { HERO_IMAGE } from "@/lib/projects";
 import { withBasePath } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+
+const heroSrc = withBasePath(HERO_IMAGE);
+preload(heroSrc, { as: "image", fetchPriority: "high" });
 
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20">
       <Image
-        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+        src={heroSrc}
         alt=""
         fill
         priority

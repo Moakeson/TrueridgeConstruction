@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import { SITE } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 
@@ -18,7 +17,8 @@ export function ContactForm() {
     setStatus("sending");
 
     try {
-      await emailjs.sendForm(
+      const emailjs = await import("@emailjs/browser");
+      await emailjs.default.sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         formRef.current,
@@ -35,7 +35,7 @@ export function ContactForm() {
     return (
       <div className="rounded-sm border border-brand-accent/30 bg-brand-accent/10 p-6 text-center">
         <p className="font-heading text-lg font-semibold">Thank you for reaching out.</p>
-        <p className="mt-2 text-brand-muted">
+        <p className="mt-2 text-brand-black/80">
           We will get back to you as soon as possible.
         </p>
         <Button
@@ -66,7 +66,7 @@ export function ContactForm() {
           id="from_name"
           name="from_name"
           required
-          className="mt-1 w-full rounded-sm border border-brand-black/20 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
+          className="mt-1 w-full rounded-sm border border-brand-black/40 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
         />
       </div>
 
@@ -79,7 +79,7 @@ export function ContactForm() {
           id="phone"
           name="phone"
           required
-          className="mt-1 w-full rounded-sm border border-brand-black/20 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
+          className="mt-1 w-full rounded-sm border border-brand-black/40 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
         />
       </div>
 
@@ -92,7 +92,7 @@ export function ContactForm() {
           id="from_email"
           name="from_email"
           required
-          className="mt-1 w-full rounded-sm border border-brand-black/20 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
+          className="mt-1 w-full rounded-sm border border-brand-black/40 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
         />
       </div>
 
@@ -105,7 +105,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
-          className="mt-1 w-full rounded-sm border border-brand-black/20 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
+          className="mt-1 w-full rounded-sm border border-brand-black/40 bg-white px-4 py-3 text-brand-black focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent"
         />
       </div>
 

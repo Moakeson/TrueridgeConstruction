@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
+import nextDynamic from "next/dynamic";
 import { SITE } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ContactForm } from "@/components/forms/ContactForm";
+
+const ContactForm = nextDynamic(
+  () =>
+    import("@/components/forms/ContactForm").then((mod) => mod.ContactForm),
+  {
+    loading: () => (
+      <div className="h-96 animate-pulse rounded-sm bg-brand-black/5" />
+    ),
+  },
+);
 
 export const metadata: Metadata = {
   title: "Contact Us | Schedule a Free Consultation",
@@ -30,7 +40,7 @@ export default function ContactPage() {
             <span className="text-brand-muted">Or call us at </span>
             <a
               href={SITE.phoneHref}
-              className="font-heading text-xl font-semibold hover:text-brand-accent"
+              className="inline-flex min-h-11 items-center font-heading text-xl font-semibold hover:text-brand-accent-text"
             >
               {SITE.phone}
             </a>
@@ -39,7 +49,7 @@ export default function ContactPage() {
             <span className="text-brand-muted">Or email </span>
             <a
               href={SITE.emailHref}
-              className="font-heading font-semibold hover:text-brand-accent"
+              className="inline-flex min-h-11 items-center font-heading font-semibold hover:text-brand-accent-text"
             >
               {SITE.email}
             </a>

@@ -1,7 +1,17 @@
+import dynamic from "next/dynamic";
 import { SITE } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ContactForm } from "@/components/forms/ContactForm";
+
+const ContactForm = dynamic(
+  () =>
+    import("@/components/forms/ContactForm").then((mod) => mod.ContactForm),
+  {
+    loading: () => (
+      <div className="h-96 animate-pulse rounded-sm bg-brand-black/5" />
+    ),
+  },
+);
 
 export function ContactSection() {
   return (
@@ -28,7 +38,7 @@ export function ContactSection() {
               </p>
               <a
                 href={SITE.phoneHref}
-                className="mt-1 block font-heading text-2xl font-semibold hover:text-brand-accent"
+                className="mt-1 inline-flex min-h-11 items-center font-heading text-2xl font-semibold hover:text-brand-accent-text"
               >
                 {SITE.phone}
               </a>
@@ -39,7 +49,7 @@ export function ContactSection() {
               </p>
               <a
                 href={SITE.emailHref}
-                className="mt-1 block font-heading text-xl font-semibold hover:text-brand-accent"
+                className="mt-1 inline-flex min-h-11 items-center font-heading text-xl font-semibold hover:text-brand-accent-text"
               >
                 {SITE.email}
               </a>

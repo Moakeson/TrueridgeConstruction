@@ -6,6 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
+import { withBasePath } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
 interface ProjectCarouselProps {
@@ -65,18 +66,18 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
     >
       <div ref={emblaRef} className="h-full overflow-hidden">
         <div className="flex h-full">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
               className="relative min-w-0 flex-[0_0_100%] h-full"
             >
               <Image
-                src={project.src}
+                src={withBasePath(project.src)}
                 alt={project.alt}
                 fill
                 className="object-cover"
                 sizes="100vw"
-                loading="lazy"
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-brand-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
@@ -108,7 +109,7 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
       </button>
 
       <div
-        className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2"
+        className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1 rounded-full bg-brand-black/50 px-2 py-1 backdrop-blur"
         role="tablist"
         aria-label="Project slides"
       >
@@ -121,13 +122,17 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
             aria-label={`Go to slide ${index + 1}: ${project.caption}`}
             aria-current={index === selectedIndex ? "true" : undefined}
             onClick={() => scrollTo(index)}
-            className={cn(
-              "h-2.5 w-2.5 rounded-full transition-colors",
-              index === selectedIndex
-                ? "bg-brand-accent"
-                : "bg-brand-white/50 hover:bg-brand-white/80",
-            )}
-          />
+            className="flex h-11 w-11 items-center justify-center"
+          >
+            <span
+              className={cn(
+                "h-2.5 w-2.5 rounded-full transition-colors",
+                index === selectedIndex
+                  ? "bg-brand-accent"
+                  : "bg-brand-white/80 ring-1 ring-brand-black/30",
+              )}
+            />
+          </button>
         ))}
       </div>
     </div>

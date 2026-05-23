@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { SITE } from "@/lib/constants";
+import { withBasePath } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -30,7 +31,7 @@ export default function OurWorkPage() {
               className="group relative aspect-[4/3] overflow-hidden rounded-sm"
             >
               <Image
-                src={project.src}
+                src={withBasePath(project.src)}
                 alt={project.alt}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"

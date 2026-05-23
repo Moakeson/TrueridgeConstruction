@@ -4,7 +4,8 @@
   --color-brand-black: #0a0a0a;
   --color-brand-white: #fafafa;
   --color-brand-accent: #b8956f;
-  --color-brand-muted: #6b7280;
+  --color-brand-accent-text: #7c5c2e;
+  --color-brand-muted: #52525b;
   --color-brand-surface: #f4f4f5;
 
   --font-heading: var(--font-outfit);

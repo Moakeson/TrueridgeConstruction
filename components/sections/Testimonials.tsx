@@ -16,7 +16,7 @@ export function Testimonials() {
                 <p className="flex-1 text-lg leading-relaxed text-brand-black/90">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-                <footer className="mt-4 font-heading text-sm font-semibold text-brand-accent">
+                <footer className="mt-4 font-heading text-sm font-semibold text-brand-accent-text">
                   — {testimonial.author}
                 </footer>
               </blockquote>

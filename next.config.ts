@@ -17,12 +17,9 @@ const nextConfig: NextConfig = {
     : {}),
   images: {
     unoptimized: isGithubPages,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "embla-carousel-react"],
   },
 };
 
