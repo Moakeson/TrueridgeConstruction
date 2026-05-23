@@ -1,0 +1,45 @@
+---
+description: SEO standards for pages, metadata, and content
+globs: "app/**/*.{tsx,ts}"
+alwaysApply: false
+---
+
+# SEO Optimization
+
+Every public page must be discoverable, indexable, and locally relevant.
+
+## Metadata
+
+- Export `metadata` or `generateMetadata` on every page
+- Unique `title` and `description` per page — include service + location where relevant
+- Set `openGraph` and `twitter` images (use `/public/og/` assets)
+- Canonical URLs via `metadata.alternates.canonical`
+
+```tsx
+export const metadata: Metadata = {
+  title: "Kitchen Remodel Contractor | Salt Lake City & Utah County",
+  description: "Kitchen remodels with quality craftsmanship and clear, itemized estimates. Serving Salt Lake City and Utah County. Schedule a free consultation.",
+  openGraph: { title: "...", description: "...", images: ["/og/kitchen.jpg"] },
+};
+```
+
+## Content & Structure
+
+- One `<h1>` per page; logical heading hierarchy (`h2` → `h3`)
+- Descriptive alt text on every meaningful image
+- Internal links between service pages, portfolio, and contact
+- Target how homeowners search: "bathroom remodel Utah County", "basement finish Salt Lake City", "kitchen remodel contractor near me"
+- Match contractor copy voice (see `contractor-copy` rule) — trust and process language, not corporate jargon
+
+## Technical SEO
+
+- Prefer static generation (`export const dynamic = 'force-static'`) for marketing pages
+- Add `app/sitemap.ts` and `app/robots.ts`
+- JSON-LD structured data for `LocalBusiness` and `Service` on relevant pages
+- Clean URLs: `/services/kitchen-remodel`, not `/page?id=3`
+
+## Local Business
+
+- NAP consistency: True Ridge Construction, (801) 694-5910, Info@trueridgeconstruct.com
+- Service area: Utah County and Salt Lake County
+- Include contact info in footer on every page

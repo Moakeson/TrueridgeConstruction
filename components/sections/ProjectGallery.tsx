@@ -1,0 +1,35 @@
+import Link from "next/link";
+import { projects } from "@/lib/projects";
+import { Container } from "@/components/ui/Container";
+import { ProjectCarousel } from "@/components/sections/ProjectCarousel";
+
+export function ProjectGallery() {
+  return (
+    <section aria-labelledby="projects-heading" className="bg-brand-black">
+      <Container className="py-10">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <h2
+              id="projects-heading"
+              className="font-heading text-3xl font-semibold text-brand-white sm:text-4xl"
+            >
+              Our Latest Projects
+            </h2>
+            <p className="mt-2 text-brand-white/70">
+              Quality craftsmanship across kitchens, bathrooms, basements, and
+              more.
+            </p>
+          </div>
+          <Link
+            href="/our-work"
+            className="shrink-0 text-sm font-medium text-brand-accent hover:text-brand-accent/80"
+          >
+            View All Projects &rarr;
+          </Link>
+        </div>
+      </Container>
+
+      <ProjectCarousel projects={projects} />
+    </section>
+  );
+}

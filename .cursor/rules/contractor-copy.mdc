@@ -1,0 +1,95 @@
+---
+description: Contractor industry copy and voice for homeowner-facing content
+alwaysApply: true
+---
+
+# Contractor Copy & Voice
+
+Write for **homeowners ready to hire** — not builders, architects, or trade partners. Every headline, CTA, meta description, and component label should sound like a trusted local remodeler speaking directly to the customer.
+
+## Audience
+
+Homeowners in **Salt Lake County and Utah County** planning a remodel. They care about quality, timeline, budget clarity, and whether they can trust you in their home.
+
+## Voice
+
+- **Confident and approachable** — expert without being condescending
+- **Clear over clever** — say what you do and what happens next
+- **Reassuring** — reduce remodel anxiety (mess, surprises, delays, budget creep)
+- **First person plural** — "we" and "our team"; address the reader as "you" and "your home"
+
+## Industry Language to Use
+
+| Use | Instead of |
+|-----|------------|
+| remodel / renovation | project (alone), solution, leverage |
+| free consultation | inquiry, submit a ticket |
+| estimate / quote | pricing request, RFQ |
+| on-site assessment / walkthrough | site visit (ok), audit |
+| craftsmanship / quality work | best-in-class, synergy |
+| timeline / schedule | deliverables, sprint |
+| itemized estimate | proposal doc |
+| licensed & insured | fully credentialed provider |
+| transform / update / finish | optimize, iterate |
+| concept to completion | end-to-end lifecycle |
+
+## Trust & Process Phrases
+
+Weave these naturally — don't stack them in one paragraph:
+
+- "Clear communication from start to finish"
+- "Itemized estimate — no surprises"
+- "Quality craftsmanship you can see"
+- "On time and on budget"
+- "We work in your home like it's our own"
+- "From first walkthrough to final walkthrough"
+
+## Service Terminology
+
+Match how homeowners search and speak:
+
+- **Kitchen remodel** — countertops, cabinets, backsplash, layout
+- **Bathroom remodel** — vanity, tile, shower, fixtures
+- **Basement finish / basement remodel** — finish-out, living space, home office
+- **Fireplace install** — electric fireplace, built-in, surround
+
+## CTAs
+
+Action-oriented, low-commitment first step:
+
+```tsx
+// ✅ GOOD
+"Schedule a Free Consultation"
+"Request an Estimate"
+"Tell Us About Your Project"
+
+// ❌ BAD
+"Learn More" (too vague)
+"Submit" (cold)
+"Get Started Today!" (hypey)
+```
+
+## Words to Avoid
+
+- Corporate SaaS: leverage, streamline, ecosystem, scalable, disrupt
+- Vague superlatives: world-class, premier, leading (unless backed by proof)
+- Unexplained trade jargon: rough-in, jack stud, LVL (homeowners won't search these)
+- Fear-based selling: "Don't hire the wrong contractor"
+
+## Examples
+
+```tsx
+// ❌ BAD
+"We provide comprehensive renovation solutions for residential clients."
+
+// ✅ GOOD
+"We handle kitchen and bathroom remodels, basement finish-outs, and fireplace installs — with clear estimates and a timeline you can count on."
+```
+
+```tsx
+// ❌ BAD — metadata
+description: "Home improvement services in Utah."
+
+// ✅ GOOD — metadata
+description: "Kitchen & bathroom remodels in Salt Lake City and Utah County. Free on-site consultation. Quality craftsmanship, clear estimates, on-time completion."
+```

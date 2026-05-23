@@ -1,0 +1,43 @@
+---
+description: Performance standards — Core Web Vitals and bundle size
+globs: "**/*.{tsx,jsx,ts}"
+alwaysApply: false
+---
+
+# Performance
+
+Optimize for fast loads on mobile — most visitors find the site via local search.
+
+## Images
+
+- Always use `next/image` — never raw `<img>` for content photos
+- Provide `width`, `height`, and `sizes`; use `priority` only for above-the-fold hero
+- Serve WebP/AVIF; compress portfolio images before adding to `public/`
+
+```tsx
+// ✅ GOOD
+<Image src="/work/kitchen-1.jpg" alt="Kitchen remodel in Draper" width={800} height={600} sizes="(max-width: 768px) 100vw, 50vw" />
+```
+
+## JavaScript & Rendering
+
+- Server Components by default — minimize client JS
+- Dynamic import heavy client components: `const Gallery = dynamic(() => import('./Gallery'))`
+- No unnecessary `"use client"` — keeps bundles small
+- Avoid large icon libraries; use `lucide-react` with named imports only
+
+## Fonts & CSS
+
+- Use `next/font` for web fonts — no `@import` from Google Fonts in CSS
+- Tailwind utilities over custom CSS; purge unused styles automatically
+
+## Data & Forms
+
+- Static pages at build time; no client-side fetching for marketing content
+- EmailJS loads only in the ContactForm client component
+- Lazy-load below-the-fold carousels and galleries
+
+## Targets
+
+- Lighthouse Performance ≥ 90 on mobile
+- LCP < 2.5s, CLS < 0.1, INP < 200ms

@@ -1,0 +1,31 @@
+---
+description: True Ridge Construction project stack and conventions
+alwaysApply: true
+---
+
+# Project Stack
+
+Local **home renovation contractor** marketing site for True Ridge Construction — kitchen, bathroom, basement remodels, and fireplace installs. Serving Salt Lake County and Utah County. All user-facing copy follows the `contractor-copy` rule.
+
+## Tech Stack
+
+- **Next.js 15** (App Router) — static generation by default
+- **React** + **TypeScript**
+- **Tailwind CSS** — all styling; no CSS modules or inline styles unless necessary
+- **EmailJS** — contact form submissions (client component only)
+
+## Project Structure
+
+```
+app/           → routes, layouts, metadata
+components/    → reusable React components (ui/, sections/, forms/)
+lib/           → utilities, constants, SEO helpers
+public/        → static assets (favicon, og images)
+```
+
+## General Conventions
+
+- Prefer **Server Components**; add `"use client"` only for interactivity (forms, mobile nav, carousels)
+- One component per file; PascalCase filenames matching the export
+- Colocate section-specific components in `components/sections/`
+- Env vars for EmailJS use `NEXT_PUBLIC_` prefix; never commit `.env.local`

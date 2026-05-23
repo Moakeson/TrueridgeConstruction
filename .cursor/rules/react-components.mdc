@@ -1,0 +1,52 @@
+---
+description: React component patterns — components over raw HTML
+globs: "**/*.{tsx,jsx}"
+alwaysApply: false
+---
+
+# React Components Over HTML
+
+Build UI with composable React components, not inline HTML in page files.
+
+## Page Files
+
+Page files (`app/**/page.tsx`) should compose components — not contain large blocks of markup.
+
+```tsx
+// ❌ BAD — raw HTML in page
+export default function Home() {
+  return (
+    <div>
+      <div className="hero">...</div>
+      <div className="services">...</div>
+    </div>
+  );
+}
+
+// ✅ GOOD — composed components
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <ServicesGrid />
+      <HowItWorks />
+      <Testimonials />
+      <ContactSection />
+    </>
+  );
+}
+```
+
+## Component Rules
+
+- Extract repeated UI into `components/ui/` (Button, Card, SectionHeading)
+- Extract page sections into `components/sections/` (Hero, ServicesGrid, Footer)
+- Use semantic HTML **inside** components: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
+- Use `next/link` for internal navigation, never raw `<a href="/...">`
+- Props typed with TypeScript interfaces; avoid `any`
+- Keep components focused — split if a file exceeds ~150 lines
+
+## Client vs Server
+
+- Default to Server Components (no `"use client"`)
+- `"use client"` only when needed: EmailJS form, useState, useEffect, event handlers, browser APIs

@@ -1,0 +1,34 @@
+---
+description: EmailJS contact form patterns
+globs: "**/components/**/*.{tsx,jsx}"
+alwaysApply: false
+---
+
+# EmailJS Contact Form
+
+Contact submissions go through EmailJS — no custom API routes.
+
+## Setup
+
+```env
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+```
+
+## Component Pattern
+
+- Live in `components/forms/ContactForm.tsx` with `"use client"`
+- Use `@emailjs/browser` `sendForm()` — field `name` attrs must match template variables
+- States: idle → sending → success | error
+- On error, show fallback: phone (801) 694-5910 and Info@trueridgeconstruct.com
+- Reset form on success; disable submit button while sending
+- Consider honeypot field for spam; add reCAPTCHA if spam increases
+
+```tsx
+await emailjs.sendForm(serviceId, templateId, formRef.current, { publicKey });
+```
+
+## Fields
+
+Match current site: `from_name`, `phone`, `from_email`, `message`
