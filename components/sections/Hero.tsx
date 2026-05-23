@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SITE } from "@/lib/constants";
+import { withBasePath } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
@@ -20,7 +21,7 @@ export function Hero() {
 
       <Container className="relative z-10 py-20 text-center">
         <Image
-          src="/logo.svg"
+          src={withBasePath("/logo.svg")}
           alt={`${SITE.name} logo`}
           width={320}
           height={320}

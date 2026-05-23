@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -17,7 +17,7 @@ export function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/logo.svg"
+            src={withBasePath("/logo.svg")}
             alt=""
             width={40}
             height={40}
