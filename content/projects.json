@@ -1,0 +1,32 @@
+[
+  {
+    "image": "basement.JPG",
+    "caption": "Basement finish-out — open living space with new carpet and lighting",
+    "alt": "Finished basement with white walls, gray carpet, recessed lighting, and modern interior door in a Utah home",
+    "service": "basement-remodel"
+  },
+  {
+    "image": "kitchen.JPG",
+    "caption": "Kitchen remodel — custom cabinets, island, and granite countertops",
+    "alt": "Kitchen remodel with gray shaker cabinets, granite countertops, tiled backsplash, and center island in a Utah home",
+    "service": "kitchen-remodel"
+  },
+  {
+    "image": "bathroom_vanity.JPG",
+    "caption": "Bathroom remodel — marble vanity and updated fixtures",
+    "alt": "Bathroom vanity remodel with gray cabinets, marble countertop, and brushed nickel fixtures in Utah County",
+    "service": "bathroom-remodel"
+  },
+  {
+    "image": "shower.JPG",
+    "caption": "Walk-in shower — custom surround and updated fixtures",
+    "alt": "Walk-in shower remodel with marble-pattern walls and brushed nickel shower fixtures in Salt Lake County",
+    "service": "bathroom-remodel"
+  },
+  {
+    "image": "fireplace.png",
+    "caption": "Electric fireplace install — custom built-in with wood slat accent wall",
+    "alt": "Built-in linear electric fireplace with wood mantel and vertical wood slat accent panels in a Utah home",
+    "service": "fireplace-install"
+  }
+]

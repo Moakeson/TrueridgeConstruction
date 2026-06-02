@@ -25,16 +25,7 @@ export function Hero() {
       <div className="blueprint-grid absolute inset-0" />
 
       <Container className="relative z-10 py-20 text-center">
-        <Image
-          src={withBasePath("/logo.svg")}
-          alt={`${SITE.name} logo`}
-          width={320}
-          height={320}
-          priority
-          className="mx-auto h-48 w-48 sm:h-64 sm:w-64 md:h-80 md:w-80"
-        />
-
-        <h1 className="mt-8 font-heading text-4xl font-semibold tracking-tight text-brand-white sm:text-5xl md:text-6xl">
+        <h1 className="font-heading text-4xl font-semibold tracking-tight text-brand-white sm:text-5xl md:text-6xl">
           {SITE.tagline}
         </h1>
 

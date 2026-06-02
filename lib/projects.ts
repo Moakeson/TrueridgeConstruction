@@ -1,70 +1,86 @@
+import fs from "fs";
+import path from "path";
+import projectsData from "@/content/projects.json";
+
 export interface Project {
   id: string;
-  /** Path under public/, e.g. /images/projects/kitchen-1.webp */
+  /** Path under public/, e.g. /latest_projects/kitchen.JPG */
   src: string;
+  width: number;
+  height: number;
   alt: string;
   caption: string;
   service?: string;
 }
 
-export const projects: Project[] = [
-  {
-    id: "kitchen-1",
-    src: "/images/projects/kitchen-1.webp",
-    alt: "Modern kitchen remodel with white cabinets and marble countertops in Utah County",
-    caption: "Kitchen remodel — custom cabinets and countertops",
-    service: "kitchen-remodel",
-  },
-  {
-    id: "bathroom-1",
-    src: "/images/projects/bathroom-1.webp",
-    alt: "Bathroom remodel with walk-in shower and updated tile in Salt Lake City",
-    caption: "Bathroom remodel — tile shower and vanity update",
-    service: "bathroom-remodel",
-  },
-  {
-    id: "kitchen-2",
-    src: "/images/projects/kitchen-2.webp",
-    alt: "Kitchen renovation with new backsplash and window in Utah home",
-    caption: "Installed new countertops, backsplash, and window",
-    service: "kitchen-remodel",
-  },
-  {
-    id: "basement-1",
-    src: "/images/projects/basement-1.webp",
-    alt: "Finished basement living space with home office in Utah County",
-    caption: "Basement finish-out — home office and sitting room",
-    service: "basement-remodel",
-  },
-  {
-    id: "fireplace-1",
-    src: "/images/projects/fireplace-1.webp",
-    alt: "Built-in electric fireplace with custom surround in Salt Lake City home",
-    caption: "Electric fireplace install — custom built-in surround",
-    service: "fireplace-install",
-  },
-  {
-    id: "kitchen-3",
-    src: "/images/projects/kitchen-3.webp",
-    alt: "Open-concept kitchen remodel with island in Utah home",
-    caption: "Kitchen remodel — open layout with island",
-    service: "kitchen-remodel",
-  },
-  {
-    id: "bathroom-2",
-    src: "/images/projects/bathroom-2.webp",
-    alt: "Spa-style bathroom remodel with freestanding tub in Utah County",
-    caption: "Bathroom remodel — spa-style fixtures and tile",
-    service: "bathroom-remodel",
-  },
-  {
-    id: "basement-2",
-    src: "/images/projects/basement-2.webp",
-    alt: "Finished basement family room remodel in Salt Lake County",
-    caption: "Basement remodel — family room finish-out",
-    service: "basement-remodel",
-  },
-];
+interface ProjectMetadata {
+  image: string;
+  caption: string;
+  alt: string;
+  service?: string;
+}
 
-/** Homepage hero background — add as public/images/hero.webp */
-export const HERO_IMAGE = "/images/hero.webp";
+/** Folder under public/ where project photos live */
+const PROJECTS_DIR = "/latest_projects";
+
+function toProjectId(filename: string): string {
+  return filename.replace(/\.[^.]+$/, "").replace(/_/g, "-").toLowerCase();
+}
+
+function readImageSize(filePath: string): { width: number; height: number } {
+  const buffer = fs.readFileSync(filePath);
+  const ext = path.extname(filePath).toLowerCase();
+
+  if (ext === ".png") {
+    return {
+      width: buffer.readUInt32BE(16),
+      height: buffer.readUInt32BE(20),
+    };
+  }
+
+  let i = 2;
+  while (i < buffer.length) {
+    if (buffer[i] !== 0xff) {
+      i++;
+      continue;
+    }
+
+    const marker = buffer[i + 1];
+    if (marker === 0xc0 || marker === 0xc1 || marker === 0xc2) {
+      return {
+        width: buffer.readUInt16BE(i + 7),
+        height: buffer.readUInt16BE(i + 5),
+      };
+    }
+
+    i += 2 + buffer.readUInt16BE(i + 2);
+  }
+
+  throw new Error(`Could not read image dimensions: ${filePath}`);
+}
+
+/** Gallery projects — order and copy from content/projects.json */
+export const projects: Project[] = (projectsData as ProjectMetadata[]).map(
+  (entry) => {
+    const imagePath = path.join(
+      process.cwd(),
+      "public",
+      PROJECTS_DIR.slice(1),
+      entry.image,
+    );
+    const { width, height } = readImageSize(imagePath);
+
+    return {
+      id: toProjectId(entry.image),
+      src: `${PROJECTS_DIR}/${entry.image}`,
+      width,
+      height,
+      alt: entry.alt,
+      caption: entry.caption,
+      ...(entry.service ? { service: entry.service } : {}),
+    };
+  },
+);
+
+/** Homepage hero background — public/hero.png */
+export const HERO_IMAGE = "/hero.png";

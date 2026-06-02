@@ -28,13 +28,14 @@ export default function OurWorkPage() {
           {projects.map((project) => (
             <figure
               key={project.id}
-              className="group relative aspect-[4/3] overflow-hidden rounded-sm"
+              className="group flex aspect-[4/3] items-center justify-center overflow-hidden rounded-sm bg-brand-black"
             >
               <Image
                 src={withBasePath(project.src)}
                 alt={project.alt}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                width={project.width}
+                height={project.height}
+                className="h-auto w-auto max-h-full max-w-full transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 loading="lazy"
               />
