@@ -28,11 +28,15 @@ Open [http://localhost:3000](http://localhost:3000).
 3. Create a template with fields: `from_name`, `phone`, `from_email`, `message`
 4. Copy your public key, service ID, and template ID into `.env.local`
 
+## Google Analytics
+
+Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in `.env.local` (see `.env.local.example`). For GitHub Pages, add the same name as a repository secret so production builds include it.
+
 ## Deploy to Vercel
 
 1. Push this repo to GitHub
 2. Import the project at [vercel.com](https://vercel.com)
-3. Add the three `NEXT_PUBLIC_EMAILJS_*` environment variables
+3. Add the `NEXT_PUBLIC_EMAILJS_*` and `NEXT_PUBLIC_GA_MEASUREMENT_ID` environment variables
 4. Deploy and point `trueridgeconstruct.com` DNS to Vercel
 
 ## Project Structure
