@@ -1,5 +1,7 @@
 "use client";
 
+import { sendGAEvent } from "@next/third-parties/google";
+import { usePathname } from "next/navigation";
 import { useState, useRef } from "react";
 import { SITE } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
@@ -7,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 type FormStatus = "idle" | "sending" | "success" | "error";
 
 export function ContactForm() {
+  const pathname = usePathname();
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<FormStatus>("idle");
 
@@ -24,6 +27,10 @@ export function ContactForm() {
         formRef.current,
         { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! },
       );
+      sendGAEvent("event", "generate_lead", {
+        form_name: "contact",
+        page_path: pathname,
+      });
       setStatus("success");
       formRef.current.reset();
     } catch {
