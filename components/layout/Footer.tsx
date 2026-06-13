@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/Container";
 export function Footer() {
   return (
     <footer className="border-t border-brand-black/10 bg-brand-black text-brand-white">
-      <Container as="footer" className="py-12">
+      <Container className="py-12">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <p className="font-heading text-lg font-semibold">{SITE.name}</p>
@@ -78,7 +78,6 @@ export function Footer() {
               <li className="pt-2 text-brand-white/70">
                 Servicing {SITE.serviceArea}
               </li>
-              <li className="text-brand-white/60">{SITE.license}</li>
             </ul>
           </div>
         </div>

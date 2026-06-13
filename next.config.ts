@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
     : {}),
   images: {
     unoptimized: isGithubPages,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "embla-carousel-react"],

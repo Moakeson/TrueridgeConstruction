@@ -14,16 +14,23 @@ interface ProjectCarouselProps {
 }
 
 export function ProjectCarousel({ projects }: ProjectCarouselProps) {
+  const [mounted, setMounted] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
-  }, []);
+  }, [mounted]);
 
   const autoplayRef = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true }),
@@ -31,7 +38,7 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true },
-    reducedMotion ? [] : [autoplayRef.current],
+    mounted && !reducedMotion ? [autoplayRef.current] : [],
   );
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -42,7 +49,7 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
   );
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!mounted || !emblaApi) return;
 
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on("select", onSelect);
@@ -51,7 +58,7 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
     return () => {
       emblaApi.off("select", onSelect);
     };
-  }, [emblaApi]);
+  }, [emblaApi, mounted]);
 
   return (
     <div
@@ -65,7 +72,7 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
       }}
     >
       <div className="relative h-[50vh] min-h-[320px] md:h-[65vh]">
-        <div ref={emblaRef} className="h-full overflow-hidden">
+        <div ref={mounted ? emblaRef : undefined} className="h-full overflow-hidden">
           <div className="flex h-full">
             {projects.map((project, index) => (
               <div

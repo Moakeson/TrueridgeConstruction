@@ -1,28 +1,30 @@
-import { TESTIMONIALS } from "@/lib/constants";
+import { getGoogleReviews } from "@/lib/google-reviews";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Card } from "@/components/ui/Card";
+import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
 
-export function Testimonials() {
+export async function Testimonials() {
+  const { reviews, googleMapsUri } = await getGoogleReviews();
+
   return (
     <section aria-labelledby="testimonials-heading" className="py-20">
       <Container>
-        <SectionHeading title="What Homeowners Say" />
+        <SectionHeading title="Client Reviews" />
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {TESTIMONIALS.map((testimonial) => (
-            <Card key={testimonial.author} as="article" className="flex h-full flex-col">
-              <blockquote className="flex flex-1 flex-col">
-                <p className="flex-1 text-lg leading-relaxed text-brand-black/90">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </p>
-                <footer className="mt-4 font-heading text-sm font-semibold text-brand-accent-text">
-                  — {testimonial.author}
-                </footer>
-              </blockquote>
-            </Card>
-          ))}
-        </div>
+        <ReviewsCarousel reviews={reviews} />
+
+        {googleMapsUri ? (
+          <p className="mt-10 text-center">
+            <a
+              href={googleMapsUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-brand-accent-text hover:text-brand-accent-text/80"
+            >
+              See all reviews on Google
+            </a>
+          </p>
+        ) : null}
       </Container>
     </section>
   );

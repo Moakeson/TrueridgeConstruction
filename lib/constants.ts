@@ -9,7 +9,6 @@ export const SITE = {
   email: "Info@trueridgeconstruct.com",
   emailHref: "mailto:Info@trueridgeconstruct.com",
   serviceArea: "Salt Lake County and Utah County",
-  license: "G-XP20KVMEP0",
   social: {
     instagram: "https://www.instagram.com/true_ridge_construction_llc/",
   },

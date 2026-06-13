@@ -1,4 +1,5 @@
 import { SITE } from "./constants";
+import { getGoogleReviews } from "./google-reviews";
 
 export interface ServiceDetail {
   slug: string;
@@ -85,7 +86,9 @@ export function getServiceDetail(slug: string): ServiceDetail | undefined {
   return serviceDetails[slug];
 }
 
-export function getLocalBusinessSchema() {
+export async function getLocalBusinessSchema() {
+  const { rating, userRatingCount } = await getGoogleReviews();
+
   return {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
@@ -105,6 +108,17 @@ export function getLocalBusinessSchema() {
     },
     priceRange: "$$",
     sameAs: [SITE.social.instagram],
+    ...(rating != null && userRatingCount != null
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: rating,
+            reviewCount: userRatingCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
   };
 }
 

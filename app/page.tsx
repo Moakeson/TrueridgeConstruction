@@ -17,14 +17,16 @@ const ProjectGallery = nextDynamic(
 
 export const dynamic = "force-static";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const localBusinessSchema = await getLocalBusinessSchema();
+
   return (
     <>
-      <JsonLd data={getLocalBusinessSchema()} />
+      <JsonLd data={localBusinessSchema} />
       <Hero />
-      <ProjectGallery />
       <ServicesGrid />
       <HowItWorks />
+      <ProjectGallery />
       <Testimonials />
       <ContactSection />
     </>
