@@ -110,7 +110,8 @@ export async function getGoogleReviews(): Promise<GoogleReviewsResult> {
         headers: {
           "Content-Type": "application/json",
           "X-Goog-Api-Key": apiKey,
-          "X-Goog-FieldMask": "reviews,rating,userRatingCount,googleMapsUri",
+          "X-Goog-FieldMask":
+            "reviews.authorAttribution,reviews.text,reviews.rating,reviews.publishTime,reviews.relativePublishTimeDescription,rating,userRatingCount,googleMapsUri",
         },
         next: { revalidate: false },
       },
