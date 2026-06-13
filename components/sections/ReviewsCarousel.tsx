@@ -21,6 +21,7 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [pulseScale, setPulseScale] = useState(1.05);
 
   const autoplayRef = useRef(
     Autoplay({
@@ -32,9 +33,9 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      align: "start",
+      align: "center",
       loop: reviews.length > 1,
-      containScroll: "trimSnaps",
+      containScroll: false,
     },
     mounted && !reducedMotion && !userInteracted ? [autoplayRef.current] : [],
   );
@@ -63,6 +64,26 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
       autoplayRef.current.stop();
     }
   }, [userInteracted]);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setPulseScale(1.05);
+      return;
+    }
+
+    setPulseScale(0.9);
+    const growFrame = requestAnimationFrame(() => {
+      setPulseScale(1.08);
+    });
+    const settleTimer = window.setTimeout(() => {
+      setPulseScale(1.05);
+    }, 550);
+
+    return () => {
+      cancelAnimationFrame(growFrame);
+      window.clearTimeout(settleTimer);
+    };
+  }, [selectedIndex, reducedMotion]);
 
   const scrollPrev = useCallback(() => {
     stopAutoplay();
@@ -107,22 +128,48 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
 
   return (
     <div
-      className="group relative"
+      className="group relative -mt-2"
       role="region"
       aria-roledescription="carousel"
       aria-label="Client reviews"
       onPointerDown={stopAutoplay}
     >
-      <div ref={mounted ? emblaRef : undefined} className="overflow-hidden">
-        <div className="-ml-4 flex">
-          {reviews.map((review) => (
-            <div
-              key={`${review.author}-${review.text.slice(0, 24)}`}
-              className="min-w-0 flex-[0_0_100%] pl-4 sm:flex-[0_0_85%] md:flex-[0_0_55%] lg:flex-[0_0_42%]"
-            >
-              <ReviewCard review={review} onInteract={stopAutoplay} />
-            </div>
-          ))}
+      <div
+        ref={mounted ? emblaRef : undefined}
+        className="overflow-hidden py-6"
+      >
+        <div className="flex">
+          {reviews.map((review, index) => {
+            const isSelected = index === selectedIndex;
+
+            return (
+              <div
+                key={`${review.author}-${review.text.slice(0, 24)}`}
+                className="min-w-0 flex-[0_0_88%] px-2 sm:flex-[0_0_72%] md:flex-[0_0_58%] lg:flex-[0_0_48%]"
+              >
+                <div
+                  className={cn(
+                    "h-full will-change-transform",
+                    !reducedMotion && "transition-all duration-500 ease-out",
+                    isSelected
+                      ? "z-10 opacity-100"
+                      : "scale-[0.85] opacity-40",
+                  )}
+                  style={
+                    isSelected && !reducedMotion
+                      ? { transform: `scale(${pulseScale})` }
+                      : undefined
+                  }
+                >
+                  <ReviewCard
+                    review={review}
+                    onInteract={stopAutoplay}
+                    selected={isSelected}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -132,7 +179,7 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
             type="button"
             onClick={scrollPrev}
             disabled={!canScrollPrev}
-            className="absolute -left-3 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-brand-black/10 bg-white p-2 text-brand-black shadow-sm transition-opacity hover:bg-brand-black/5 focus-visible:opacity-100 disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-left-5"
+            className="absolute left-0 top-1/2 z-20 -translate-y-1/2 rounded-full border border-brand-black/10 bg-white p-2 text-brand-black shadow-md transition-opacity hover:bg-brand-black/5 focus-visible:opacity-100 disabled:pointer-events-none disabled:opacity-30 sm:left-2"
             aria-label="Previous review"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -142,14 +189,14 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
             type="button"
             onClick={scrollNext}
             disabled={!canScrollNext}
-            className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-brand-black/10 bg-white p-2 text-brand-black shadow-sm transition-opacity hover:bg-brand-black/5 focus-visible:opacity-100 disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-right-5"
+            className="absolute right-0 top-1/2 z-20 -translate-y-1/2 rounded-full border border-brand-black/10 bg-white p-2 text-brand-black shadow-md transition-opacity hover:bg-brand-black/5 focus-visible:opacity-100 disabled:pointer-events-none disabled:opacity-30 sm:right-2"
             aria-label="Next review"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
 
           <div
-            className="mt-6 flex justify-center gap-1"
+            className="mt-2 flex justify-center gap-1"
             role="tablist"
             aria-label="Review slides"
           >
@@ -166,9 +213,9 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
               >
                 <span
                   className={cn(
-                    "rounded-full transition-colors",
+                    "rounded-full transition-all duration-300",
                     index === selectedIndex
-                      ? "h-2 w-2 bg-brand-accent"
+                      ? "h-2.5 w-2.5 scale-125 bg-brand-accent"
                       : "h-1.5 w-1.5 bg-brand-black/20 hover:bg-brand-black/35",
                   )}
                 />

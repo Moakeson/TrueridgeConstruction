@@ -9,7 +9,7 @@ export async function Testimonials() {
   return (
     <section aria-labelledby="testimonials-heading" className="py-20">
       <Container>
-        <SectionHeading title="Client Reviews" />
+        <SectionHeading title="Client Reviews" className="mb-6" />
 
         <ReviewsCarousel reviews={reviews} />
 

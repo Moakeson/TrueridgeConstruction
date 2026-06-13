@@ -13,6 +13,7 @@ const READ_MORE_CHAR_THRESHOLD = 160;
 interface ReviewCardProps {
   review: ClientReview;
   onInteract: () => void;
+  selected?: boolean;
 }
 
 function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
@@ -41,7 +42,7 @@ function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
   );
 }
 
-export function ReviewCard({ review, onInteract }: ReviewCardProps) {
+export function ReviewCard({ review, onInteract, selected = false }: ReviewCardProps) {
   const [expanded, setExpanded] = useState(false);
   const showReadMore = review.text.length > READ_MORE_CHAR_THRESHOLD;
 
@@ -51,7 +52,15 @@ export function ReviewCard({ review, onInteract }: ReviewCardProps) {
   };
 
   return (
-    <Card as="article" className="relative flex h-full flex-col">
+    <Card
+      as="article"
+      className={cn(
+        "relative flex h-full flex-col",
+        selected
+          ? "border-brand-accent/50 shadow-lg ring-2 ring-brand-accent/40"
+          : "border-brand-black/10 shadow-sm",
+      )}
+    >
       <GoogleGIcon className="absolute right-4 top-4" />
 
       <blockquote className="flex flex-1 flex-col pr-8">
