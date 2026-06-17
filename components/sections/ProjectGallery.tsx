@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { projects } from "@/lib/projects";
+import { projects } from "@/lib/our-work";
 import { Container } from "@/components/ui/Container";
 import { ProjectCarousel } from "@/components/sections/ProjectCarousel";
 
@@ -29,7 +29,13 @@ export function ProjectGallery() {
         </div>
       </Container>
 
-      <ProjectCarousel projects={projects} />
+      {projects.length > 0 ? (
+        <ProjectCarousel projects={projects} />
+      ) : (
+        <p className="pb-10 text-center text-brand-white/70">
+          Project photos are coming soon. Check back shortly.
+        </p>
+      )}
     </section>
   );
 }

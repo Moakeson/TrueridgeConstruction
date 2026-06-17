@@ -14,16 +14,16 @@ export async function Testimonials() {
         <ReviewsCarousel reviews={reviews} />
 
         {googleMapsUri ? (
-          <p className="mt-10 text-center">
+          <div className="mt-10 text-center">
             <a
               href={googleMapsUri}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-brand-accent-text hover:text-brand-accent-text/80"
+              className="inline-flex min-h-11 items-center justify-center rounded-sm bg-brand-accent px-6 py-3 text-base font-medium text-brand-black transition-colors hover:bg-brand-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
             >
               See all reviews on Google
             </a>
-          </p>
+          </div>
         ) : null}
       </Container>
     </section>

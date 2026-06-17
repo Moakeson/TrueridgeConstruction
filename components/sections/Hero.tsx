@@ -1,7 +1,6 @@
 import { preload } from "react-dom";
 import Image from "next/image";
-import { SITE } from "@/lib/constants";
-import { HERO_IMAGE } from "@/lib/projects";
+import { HERO_IMAGE, SITE } from "@/lib/constants";
 import { withBasePath } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";

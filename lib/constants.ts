@@ -1,3 +1,6 @@
+/** Homepage hero background — public/hero.webp */
+export const HERO_IMAGE = "/hero.webp";
+
 export const SITE = {
   name: "True Ridge Construction",
   tagline: "Quality Remodels for Your Utah Home",
@@ -35,6 +38,9 @@ export const SERVICES = [
     shortDescription:
       "Custom cabinets, countertops, backsplash, and layouts — built with quality craftsmanship and clear communication.",
     href: "/services/kitchen-remodel",
+    image: "/images/services/kitchen.webp",
+    imageAlt:
+      "Kitchen remodel with white cabinets, quartz countertops, island seating, and tiled backsplash in a Utah home",
   },
   {
     slug: "bathroom-remodel",
@@ -42,6 +48,9 @@ export const SERVICES = [
     shortDescription:
       "Vanities, tile, showers, and fixtures updated with an itemized estimate and a timeline you can count on.",
     href: "/services/bathroom-remodel",
+    image: "/images/services/bathroom.webp",
+    imageAlt:
+      "Bathroom remodel with marble tile shower, white vanity, and matte black fixtures in a Utah home",
   },
   {
     slug: "basement-remodel",
@@ -49,6 +58,9 @@ export const SERVICES = [
     shortDescription:
       "Basement finish-outs for living space, home offices, and sitting rooms — from concept to completion.",
     href: "/services/basement-remodel",
+    image: "/images/services/basement.webp",
+    imageAlt:
+      "Finished basement living space with sectional sofa, wall-mounted TV, and electric fireplace in a Utah home",
   },
   {
     slug: "fireplace-install",
@@ -56,6 +68,10 @@ export const SERVICES = [
     shortDescription:
       "Electric fireplace installs and built-ins — solid framing, clean finishes, and stress-free construction.",
     href: "/services/fireplace-install",
+    image: "/images/services/fireplace.webp",
+    imageAlt:
+      "Built-in linear electric fireplace with wood mantel and vertical wood slat accent wall in a Utah home",
+    imagePosition: "75% center",
   },
 ] as const;
 
