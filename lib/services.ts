@@ -20,13 +20,13 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Kitchen remodels with quality craftsmanship and clear, itemized estimates. Serving Salt Lake City and Utah County. Schedule a free consultation.",
     headline: "Kitchen Remodels Built Around How You Live",
     description:
-      "Whether you're updating cabinets and countertops or reworking the entire layout, we handle kitchen remodels with clear communication from first walkthrough to final walkthrough. You'll get an itemized estimate — no surprises — and a timeline you can count on.",
+      "Whether you're updating cabinets and countertops or reworking the entire layout, we handle kitchen remodels with quality craftsmanship and clear communication. You'll get an itemized estimate — no surprises — and a timeline you can count on.",
     features: [
       "Custom cabinets and countertops",
       "Backsplash and tile work",
-      "Layout updates and open-concept conversions",
+      "Open-concept layout updates",
       "Window and lighting updates",
-      "Clear, itemized estimates before work begins",
+      "Itemized estimates before work begins",
     ],
   },
   "bathroom-remodel": {
