@@ -9,6 +9,8 @@ interface StaticImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   priority?: boolean;
   fill?: boolean;
   fetchPriority?: "high" | "low" | "auto";
+  /** When true, serve responsive srcset from image-variants.json (hero only). */
+  responsive?: boolean;
 }
 
 type ImageVariantEntry = {
@@ -38,20 +40,22 @@ export function StaticImage({
   width,
   height,
   fetchPriority,
+  responsive = false,
   ...rest
 }: StaticImageProps) {
   const normalized = src.startsWith("/") ? src : `/${src}`;
   const data = getVariantData(normalized);
   const fallbackWidth =
     typeof width === "number" ? width : (data?.width ?? 0);
-  const variants =
-    data?.variants ?? [{ width: fallbackWidth, path: normalized }];
+  const variants = responsive
+    ? (data?.variants ?? [{ width: fallbackWidth, path: normalized }])
+    : [{ width: fallbackWidth, path: normalized }];
   const defaultVariant = variants[variants.length - 1];
   const resolvedFetchPriority = fetchPriority ?? (priority ? "high" : undefined);
 
   const imgProps = {
-    src: withBasePath(defaultVariant.path),
-    srcSet: variants.length > 1 ? buildSrcSet(variants) : undefined,
+    src: withBasePath(responsive ? defaultVariant.path : normalized),
+    srcSet: responsive && variants.length > 1 ? buildSrcSet(variants) : undefined,
     sizes,
     alt,
     decoding: "async" as const,

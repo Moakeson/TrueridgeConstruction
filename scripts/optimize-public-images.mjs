@@ -7,6 +7,7 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const publicDir = path.join(root, "public");
 const manifestPath = path.join(root, "lib", "image-variants.json");
 
+const HERO_PATH = "/hero.webp";
 const VARIANT_WIDTHS = [480, 768, 1024, 1280];
 const MAX_SOURCE_WIDTH = 1280;
 const WEBP_QUALITY = 80;
@@ -42,7 +43,19 @@ function variantPath(sourcePath, width) {
   return path.join(dir, `${base}-${width}w.webp`);
 }
 
-async function optimizeImage(sourcePath) {
+function removeStaleVariants(sourcePath) {
+  const dir = path.dirname(sourcePath);
+  const base = path.basename(sourcePath, ".webp");
+  const pattern = new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}-\\d+w\\.webp$`);
+
+  for (const entry of fs.readdirSync(dir)) {
+    if (pattern.test(entry)) {
+      fs.unlinkSync(path.join(dir, entry));
+    }
+  }
+}
+
+async function optimizeHero(sourcePath) {
   const metadata = await sharp(sourcePath).metadata();
   const originalWidth = metadata.width ?? MAX_SOURCE_WIDTH;
   const originalHeight = metadata.height ?? Math.round(originalWidth * 0.75);
@@ -52,6 +65,8 @@ async function optimizeImage(sourcePath) {
     ...VARIANT_WIDTHS.filter((width) => width < maxWidth),
     maxWidth,
   ].filter((width, index, list) => list.indexOf(width) === index);
+
+  removeStaleVariants(sourcePath);
 
   const variants = [];
   for (const width of targetWidths) {
@@ -75,13 +90,45 @@ async function optimizeImage(sourcePath) {
   };
 }
 
+async function optimizeBaseImage(sourcePath) {
+  removeStaleVariants(sourcePath);
+
+  const metadata = await sharp(sourcePath).metadata();
+  const originalWidth = metadata.width ?? MAX_SOURCE_WIDTH;
+  const originalHeight = metadata.height ?? Math.round(originalWidth * 0.75);
+  const maxWidth = Math.min(originalWidth, MAX_SOURCE_WIDTH);
+
+  if (maxWidth < originalWidth) {
+    const tmpPath = `${sourcePath}.tmp.webp`;
+    await sharp(sourcePath)
+      .resize({ width: maxWidth, withoutEnlargement: true })
+      .webp({ quality: WEBP_QUALITY, effort: 4 })
+      .toFile(tmpPath);
+    fs.renameSync(tmpPath, sourcePath);
+  } else {
+    await sharp(sourcePath)
+      .webp({ quality: WEBP_QUALITY, effort: 4 })
+      .toFile(`${sourcePath}.tmp.webp`);
+    fs.renameSync(`${sourcePath}.tmp.webp`, sourcePath);
+  }
+}
+
+const heroSourcePath = path.join(publicDir, "hero.webp");
 const manifest = {};
-const files = walkWebpFiles(publicDir);
+
+if (fs.existsSync(heroSourcePath)) {
+  console.log("Optimizing hero variants:", HERO_PATH);
+  manifest[HERO_PATH] = await optimizeHero(heroSourcePath);
+}
+
+const files = walkWebpFiles(publicDir).filter(
+  (filePath) => toPublicPath(filePath) !== HERO_PATH,
+);
 
 for (const filePath of files) {
   const key = toPublicPath(filePath);
-  console.log("Optimizing:", key);
-  manifest[key] = await optimizeImage(filePath);
+  console.log("Optimizing base image:", key);
+  await optimizeBaseImage(filePath);
 }
 
 fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

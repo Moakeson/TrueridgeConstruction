@@ -23,6 +23,7 @@ export function Hero() {
         alt=""
         fill
         priority
+        responsive
         fetchPriority="high"
         sizes="100vw"
         aria-hidden

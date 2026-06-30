@@ -1,5 +1,4 @@
 import { preload } from "react-dom";
-import imageVariants from "@/lib/image-variants.json";
 import type { ServiceGallery } from "@/lib/service-gallery";
 import { withBasePath } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
@@ -9,20 +8,10 @@ interface ServiceWorkGridProps {
   gallery: ServiceGallery;
 }
 
-function preloadLcpVariant(imagePath: string) {
-  const data = imageVariants[imagePath as keyof typeof imageVariants];
-  const variant =
-    data?.variants.find((entry) => entry.width === 768) ??
-    data?.variants.at(-1);
-  if (variant) {
-    preload(withBasePath(variant.path), { as: "image", fetchPriority: "high" });
-  }
-}
-
 export function ServiceWorkGrid({ gallery }: ServiceWorkGridProps) {
   const firstImage = gallery.items[0]?.image;
   if (firstImage) {
-    preloadLcpVariant(firstImage);
+    preload(withBasePath(firstImage), { as: "image", fetchPriority: "high" });
   }
   return (
     <section className="bg-brand-surface">
