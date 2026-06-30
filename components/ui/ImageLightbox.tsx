@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { OurWorkImage } from "@/lib/our-work";
-import { withBasePath } from "@/lib/utils";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 interface ImageLightboxProps {
   images: OurWorkImage[];
@@ -95,8 +94,8 @@ export function ImageLightbox({
         ) : null}
 
         <div className="relative flex h-full w-full max-h-[calc(100vh-8rem)] items-center justify-center">
-          <Image
-            src={withBasePath(image.src)}
+          <StaticImage
+            src={image.src}
             alt=""
             width={image.width}
             height={image.height}

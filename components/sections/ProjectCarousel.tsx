@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { OurWorkImage } from "@/lib/our-work";
-import { withBasePath, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { StaticImage } from "@/components/ui/StaticImage";
 import { ImageLightbox } from "@/components/ui/ImageLightbox";
 
 interface ProjectCarouselProps {
@@ -109,8 +109,8 @@ export function ProjectCarousel({ projects }: ProjectCarouselProps) {
                     className="relative flex h-full w-full items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
                     aria-label={`View photo ${index + 1}`}
                   >
-                    <Image
-                      src={withBasePath(project.src)}
+                    <StaticImage
+                      src={project.src}
                       alt=""
                       width={project.width}
                       height={project.height}

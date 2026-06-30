@@ -1,13 +1,29 @@
-import Image from "next/image";
+import { preload } from "react-dom";
+import imageVariants from "@/lib/image-variants.json";
 import type { ServiceGallery } from "@/lib/service-gallery";
-import { Container } from "@/components/ui/Container";
 import { withBasePath } from "@/lib/utils";
+import { Container } from "@/components/ui/Container";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 interface ServiceWorkGridProps {
   gallery: ServiceGallery;
 }
 
+function preloadLcpVariant(imagePath: string) {
+  const data = imageVariants[imagePath as keyof typeof imageVariants];
+  const variant =
+    data?.variants.find((entry) => entry.width === 768) ??
+    data?.variants.at(-1);
+  if (variant) {
+    preload(withBasePath(variant.path), { as: "image", fetchPriority: "high" });
+  }
+}
+
 export function ServiceWorkGrid({ gallery }: ServiceWorkGridProps) {
+  const firstImage = gallery.items[0]?.image;
+  if (firstImage) {
+    preloadLcpVariant(firstImage);
+  }
   return (
     <section className="bg-brand-surface">
       <Container className="py-16">
@@ -26,12 +42,11 @@ export function ServiceWorkGrid({ gallery }: ServiceWorkGridProps) {
             <li key={item.image}>
               <article className="flex flex-col items-center">
                 <div className="relative aspect-4/3 w-full max-w-sm overflow-hidden rounded-sm border border-brand-black/10 sm:max-w-md lg:max-w-lg">
-                  <Image
-                    src={withBasePath(item.image)}
+                  <StaticImage
+                    src={item.image}
                     alt={item.imageAlt}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32rem"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 512px"
                     priority={index === 0}
                     fetchPriority={index === 0 ? "high" : undefined}
                   />

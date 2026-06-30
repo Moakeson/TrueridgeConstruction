@@ -1,11 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
-import { withBasePath } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 export function ServicesGrid() {
   return (
@@ -25,8 +24,8 @@ export function ServicesGrid() {
               className="flex h-full flex-col overflow-hidden p-0"
             >
               <div className="relative aspect-square w-full">
-                <Image
-                  src={withBasePath(service.image)}
+                <StaticImage
+                  src={service.image}
                   alt={service.imageAlt}
                   fill
                   className="object-cover"
@@ -35,7 +34,7 @@ export function ServicesGrid() {
                       ? { objectPosition: service.imagePosition }
                       : undefined
                   }
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 320px"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">

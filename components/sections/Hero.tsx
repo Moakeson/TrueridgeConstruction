@@ -1,23 +1,29 @@
 import { preload } from "react-dom";
-import Image from "next/image";
+import imageVariants from "@/lib/image-variants.json";
 import { HERO_IMAGE, SITE } from "@/lib/constants";
 import { withBasePath } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { StaticImage } from "@/components/ui/StaticImage";
 
-const heroSrc = withBasePath(HERO_IMAGE);
-preload(heroSrc, { as: "image", fetchPriority: "high" });
+const heroData =
+  imageVariants[HERO_IMAGE as keyof typeof imageVariants];
+const heroPreload =
+  heroData?.variants.find((variant) => variant.width === 768) ??
+  heroData?.variants.at(-1);
+if (heroPreload) {
+  preload(withBasePath(heroPreload.path), { as: "image", fetchPriority: "high" });
+}
 
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20">
-      <Image
-        src={heroSrc}
+      <StaticImage
+        src={HERO_IMAGE}
         alt=""
         fill
         priority
         fetchPriority="high"
-        className="object-cover"
         sizes="100vw"
         aria-hidden
       />
