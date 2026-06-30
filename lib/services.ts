@@ -15,9 +15,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "kitchen-remodel": {
     slug: "kitchen-remodel",
     title: "Kitchen Remodels",
-    metaTitle: "Kitchen Remodel Contractor | Salt Lake City & Utah County",
+    metaTitle: "Kitchen Remodel Contractor | Salt Lake, Utah & Wasatch Counties",
     metaDescription:
-      "Kitchen remodels with quality craftsmanship and clear, itemized estimates. Serving Salt Lake City and Utah County. Schedule a free consultation.",
+      `Kitchen remodels with quality craftsmanship and clear, itemized estimates. Serving ${SITE.serviceArea}. Schedule a free consultation.`,
     headline: "Kitchen Remodels Built Around How You Live",
     description:
       "Whether you're updating cabinets and countertops or reworking the entire layout, we handle kitchen remodels with quality craftsmanship and clear communication. You'll get an itemized estimate — no surprises — and a timeline you can count on.",
@@ -32,9 +32,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "bathroom-remodel": {
     slug: "bathroom-remodel",
     title: "Bathroom Remodels",
-    metaTitle: "Bathroom Remodel Contractor | Salt Lake City & Utah County",
+    metaTitle: "Bathroom Remodel Contractor | Salt Lake, Utah & Wasatch Counties",
     metaDescription:
-      "Bathroom remodels with quality tile work, fixtures, and clear estimates. Serving Salt Lake City and Utah County. Schedule a free consultation.",
+      `Bathroom remodels with quality tile work, fixtures, and clear estimates. Serving ${SITE.serviceArea}. Schedule a free consultation.`,
     headline: "Bathroom Remodels That Feel Like an Upgrade",
     description:
       "From shower and tile updates to full vanity and fixture replacements, we transform bathrooms with quality craftsmanship you can see. We work in your home like it's our own — keeping you informed every step of the way.",
@@ -49,9 +49,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "basement-remodel": {
     slug: "basement-remodel",
     title: "Basement Remodels",
-    metaTitle: "Basement Finish & Remodel | Salt Lake City & Utah County",
+    metaTitle: "Basement Finish & Remodel | Salt Lake, Utah & Wasatch Counties",
     metaDescription:
-      "Basement finish-outs and remodels for living space, home offices, and more. Serving Salt Lake City and Utah County. Schedule a free consultation.",
+      `Basement finish-outs and remodels for living space, home offices, and more. Serving ${SITE.serviceArea}. Schedule a free consultation.`,
     headline: "Basement Finish-Outs That Add Real Living Space",
     description:
       "Turn unused basement space into a home office, sitting room, or family area. We've completed tight-deadline basement finish-outs with quality results — and we stick to the timeline we agree on.",
@@ -66,9 +66,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   "fireplace-install": {
     slug: "fireplace-install",
     title: "Fireplace Installs",
-    metaTitle: "Electric Fireplace Installation | Utah County & Salt Lake County",
+    metaTitle: "Electric Fireplace Installation | Salt Lake, Utah & Wasatch Counties",
     metaDescription:
-      "Electric fireplace installs and custom built-ins in Utah County and Salt Lake County. Quality framing and finishes. Schedule a free consultation.",
+      `Electric fireplace installs and custom built-ins in ${SITE.serviceArea}. Quality framing and finishes. Schedule a free consultation.`,
     headline: "Electric Fireplace Installs Done Right",
     description:
       "From framing and construction to the finished built-in surround, we handle electric fireplace installs with solid craftsmanship. Jordan and the team care deeply about the work and about making the process smooth and stress-free.",
@@ -100,6 +100,7 @@ export async function getLocalBusinessSchema() {
     areaServed: [
       { "@type": "AdministrativeArea", name: "Salt Lake County, Utah" },
       { "@type": "AdministrativeArea", name: "Utah County, Utah" },
+      { "@type": "AdministrativeArea", name: "Wasatch County, Utah" },
     ],
     address: {
       "@type": "PostalAddress",
@@ -140,6 +141,7 @@ export function getServiceSchema(slug: string) {
     areaServed: [
       { "@type": "AdministrativeArea", name: "Salt Lake County, Utah" },
       { "@type": "AdministrativeArea", name: "Utah County, Utah" },
+      { "@type": "AdministrativeArea", name: "Wasatch County, Utah" },
     ],
   };
 }

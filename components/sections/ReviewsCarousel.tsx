@@ -17,6 +17,7 @@ const AUTOPLAY_DELAY_MS = 6000;
 export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
   const [mounted, setMounted] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
@@ -107,6 +108,7 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
     if (!mounted || !emblaApi) return;
 
     const update = () => {
+      setExpandedIndex(null);
       setSelectedIndex(emblaApi.selectedScrollSnap());
       setCanScrollPrev(emblaApi.canScrollPrev());
       setCanScrollNext(emblaApi.canScrollNext());
@@ -136,9 +138,9 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
     >
       <div
         ref={mounted ? emblaRef : undefined}
-        className="overflow-hidden py-6"
+        className="overflow-x-hidden overflow-y-visible py-6"
       >
-        <div className="flex">
+        <div className="flex items-start">
           {reviews.map((review, index) => {
             const isSelected = index === selectedIndex;
 
@@ -149,7 +151,7 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
               >
                 <div
                   className={cn(
-                    "h-full will-change-transform",
+                    "will-change-transform",
                     !reducedMotion && "transition-all duration-500 ease-out",
                     isSelected
                       ? "z-10 opacity-100"
@@ -165,6 +167,10 @@ export function ReviewsCarousel({ reviews }: ReviewsCarouselProps) {
                     review={review}
                     onInteract={stopAutoplay}
                     selected={isSelected}
+                    expanded={expandedIndex === index}
+                    onExpandedChange={(expanded) => {
+                      setExpandedIndex(expanded ? index : null);
+                    }}
                   />
                 </div>
               </div>

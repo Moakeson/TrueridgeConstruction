@@ -1,7 +1,22 @@
+import dynamic from "next/dynamic";
 import { getGoogleReviews } from "@/lib/google-reviews";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ReviewsCarousel } from "@/components/sections/ReviewsCarousel";
+
+const ReviewsCarousel = dynamic(
+  () =>
+    import("@/components/sections/ReviewsCarousel").then(
+      (mod) => mod.ReviewsCarousel,
+    ),
+  {
+    loading: () => (
+      <div
+        className="mx-auto h-64 max-w-lg animate-pulse rounded-sm bg-brand-black/5"
+        aria-hidden
+      />
+    ),
+  },
+);
 
 export async function Testimonials() {
   const { reviews, googleMapsUri } = await getGoogleReviews();

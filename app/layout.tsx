@@ -46,6 +46,15 @@ export default function RootLayout({
       className={`${inter.variable} ${outfit.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link
+          rel="preconnect"
+          href="https://lh3.googleusercontent.com"
+          crossOrigin=""
+        />
+      </head>
       <body className="antialiased" suppressHydrationWarning>
         <Header />
         <main>{children}</main>

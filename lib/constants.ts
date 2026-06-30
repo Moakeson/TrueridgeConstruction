@@ -5,13 +5,13 @@ export const SITE = {
   name: "True Ridge Construction",
   tagline: "Quality Remodels for Your Utah Home",
   description:
-    "Kitchen, bathroom, and basement remodels with clear estimates and craftsmanship you can see. Serving Salt Lake County and Utah County.",
+    "Kitchen, bathroom, and basement remodels with clear estimates and craftsmanship you can see. Serving Salt Lake, Utah, and Wasatch Counties.",
   url: "https://www.trueridgeconstruct.com",
   phone: "(801) 694-5910",
   phoneHref: "tel:+18016945910",
   email: "Info@trueridgeconstruct.com",
   emailHref: "mailto:Info@trueridgeconstruct.com",
-  serviceArea: "Salt Lake County and Utah County",
+  serviceArea: "Salt Lake, Utah, and Wasatch Counties",
   social: {
     instagram: "https://www.instagram.com/true_ridge_construction_llc/",
   },

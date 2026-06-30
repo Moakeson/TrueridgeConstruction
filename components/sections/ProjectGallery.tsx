@@ -1,7 +1,22 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { projects } from "@/lib/our-work";
 import { Container } from "@/components/ui/Container";
-import { ProjectCarousel } from "@/components/sections/ProjectCarousel";
+
+const ProjectCarousel = dynamic(
+  () =>
+    import("@/components/sections/ProjectCarousel").then(
+      (mod) => mod.ProjectCarousel,
+    ),
+  {
+    loading: () => (
+      <div
+        className="h-[50vh] min-h-[320px] animate-pulse bg-brand-black/80 md:h-[65vh]"
+        aria-hidden
+      />
+    ),
+  },
+);
 
 export function ProjectGallery() {
   return (

@@ -49,7 +49,8 @@ export function ServicesGrid() {
                   href={service.href}
                   className="mt-4 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-brand-accent-text hover:text-brand-accent-text/80"
                 >
-                  Learn more <ArrowRight className="h-4 w-4" aria-hidden />
+                  Explore {service.title}{" "}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </div>
             </Card>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { ClientReview } from "@/lib/google-reviews";
 import { Card } from "@/components/ui/Card";
@@ -8,12 +8,12 @@ import { StarRating } from "@/components/ui/StarRating";
 import { GoogleGIcon } from "@/components/ui/GoogleGIcon";
 import { cn } from "@/lib/utils";
 
-const READ_MORE_CHAR_THRESHOLD = 160;
-
 interface ReviewCardProps {
   review: ClientReview;
   onInteract: () => void;
   selected?: boolean;
+  expanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
 }
 
 function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
@@ -42,20 +42,41 @@ function AuthorAvatar({ name, photoUri }: { name: string; photoUri?: string }) {
   );
 }
 
-export function ReviewCard({ review, onInteract, selected = false }: ReviewCardProps) {
-  const [expanded, setExpanded] = useState(false);
-  const showReadMore = review.text.length > READ_MORE_CHAR_THRESHOLD;
+export function ReviewCard({
+  review,
+  onInteract,
+  selected = false,
+  expanded,
+  onExpandedChange,
+}: ReviewCardProps) {
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = textRef.current;
+    if (!el || expanded) return;
+
+    const checkOverflow = () => {
+      setHasOverflow(el.scrollHeight > el.clientHeight + 1);
+    };
+
+    checkOverflow();
+
+    const observer = new ResizeObserver(checkOverflow);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [review.text, expanded, selected]);
 
   const toggleExpanded = () => {
     onInteract();
-    setExpanded((current) => !current);
+    onExpandedChange(!expanded);
   };
 
   return (
     <Card
       as="article"
       className={cn(
-        "relative flex h-full flex-col",
+        "relative flex flex-col",
         selected
           ? "border-brand-accent/50 shadow-lg ring-2 ring-brand-accent/40"
           : "border-brand-black/10 shadow-sm",
@@ -63,7 +84,7 @@ export function ReviewCard({ review, onInteract, selected = false }: ReviewCardP
     >
       <GoogleGIcon className="absolute right-4 top-4" />
 
-      <blockquote className="flex flex-1 flex-col pr-8">
+      <blockquote className="flex flex-col pr-8">
         <div className="flex items-center gap-3">
           <AuthorAvatar name={review.author} photoUri={review.photoUri} />
           <div className="min-w-0">
@@ -77,15 +98,16 @@ export function ReviewCard({ review, onInteract, selected = false }: ReviewCardP
         </div>
 
         <p
+          ref={textRef}
           className={cn(
             "mt-4 text-base leading-relaxed text-brand-black/90",
-            !expanded && showReadMore && "line-clamp-4 max-h-28",
+            !expanded && "line-clamp-4 max-h-28",
           )}
         >
           {review.text}
         </p>
 
-        {showReadMore ? (
+        {hasOverflow ? (
           <button
             type="button"
             onClick={toggleExpanded}

@@ -16,6 +16,8 @@ const conversions = [
   { dir: "basement", from: "C65A7C8E-FC83-4F05-9A37-8B7A25B02E0E.JPG", to: "finished-basement-room.webp" },
   { dir: "basement", from: "IMG_1364.JPG", to: "basement-closet.webp" },
   { dir: "basement", from: "New basement Closet buildout.JPG", to: "basement-hallway.webp" },
+  { dir: "kitchen", from: "IMG_3205.JPG", to: "picket-tile-backsplash.webp" },
+  { dir: "kitchen", from: "D797138C-7B37-41F1-8790-749B6DA991DE.PNG", to: "white-shaker-kitchen.webp" },
 ];
 
 for (const { dir, from, to } of conversions) {

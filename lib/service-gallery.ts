@@ -13,6 +13,30 @@ export interface ServiceGallery {
 }
 
 export const serviceGalleries: Record<string, ServiceGallery> = {
+  "kitchen-remodel": {
+    titleAccent: "What We",
+    titleRest: "Build in Your Kitchen",
+    subtitle:
+      "Custom cabinets, countertops, backsplash, and layouts — quality craftsmanship with clear estimates and a timeline you can count on.",
+    items: [
+      {
+        image: "/kitchen/picket-tile-backsplash.webp",
+        imageAlt:
+          "White kitchen cabinets with black hardware, picket tile backsplash, and granite countertops",
+        title: "White Cabinets with Picket Tile Backsplash",
+        description:
+          "This kitchen update features crisp white cabinetry with matte black hardware, a white picket tile backsplash, and speckled granite countertops. A professional-style faucet, undermount sink, and clean finishes bring the space together with a bright, polished look.",
+      },
+      {
+        image: "/kitchen/white-shaker-kitchen.webp",
+        imageAlt:
+          "White shaker kitchen with stainless steel appliances, granite countertops, and wood-look flooring",
+        title: "Modern White Shaker Kitchen",
+        description:
+          "This kitchen remodel delivers a clean, open layout with white shaker cabinets, stainless steel appliances, and granite countertops. Light wood-look flooring and recessed lighting keep the room bright and functional — ready for everyday cooking and gathering.",
+      },
+    ],
+  },
   "fireplace-install": {
     titleAccent: "What We",
     titleRest: "Build Around Your Fireplace",

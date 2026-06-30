@@ -22,7 +22,7 @@ export function ServiceWorkGrid({ gallery }: ServiceWorkGridProps) {
         </div>
 
         <ul className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-14">
-          {gallery.items.map((item) => (
+          {gallery.items.map((item, index) => (
             <li key={item.image}>
               <article className="flex flex-col items-center">
                 <div className="relative aspect-4/3 w-full max-w-sm overflow-hidden rounded-sm border border-brand-black/10 sm:max-w-md lg:max-w-lg">
@@ -32,6 +32,8 @@ export function ServiceWorkGrid({ gallery }: ServiceWorkGridProps) {
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 32rem"
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : undefined}
                   />
                 </div>
                 <h3 className="mt-5 text-center font-heading text-xl font-semibold text-brand-accent-text">
