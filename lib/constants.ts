@@ -6,7 +6,7 @@ export const SITE = {
   tagline: "Quality Remodels for Your Utah Home",
   description:
     "Kitchen, bathroom, and basement remodels with clear estimates and craftsmanship you can see. Serving Salt Lake, Utah, and Wasatch Counties.",
-  url: "https://www.trueridgeconstruct.com",
+  url: "https://trueridgeconstruction.com",
   phone: "(801) 694-5910",
   phoneHref: "tel:+18016945910",
   email: "Info@trueridgeconstruct.com",
